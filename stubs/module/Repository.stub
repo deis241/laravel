@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Modules\{{ModuleName}}\Repositories;
+
+use App\Modules\{{ModuleName}}\Models\{{ModelName}};
+use App\Modules\{{ModuleName}}\Repositories\Contracts\{{ModelName}}RepositoryInterface;
+use App\Shared\Repositories\BaseRepository;
+
+class {{ModelName}}Repository extends BaseRepository implements {{ModelName}}RepositoryInterface
+{
+    protected array $defaultRelations  = [];
+    protected array $searchableColumns = [];
+
+    public function __construct({{ModelName}} $model)
+    {
+        $this->model = $model;
+    }
+
+    // Ajouter ici les requêtes spécifiques
+}

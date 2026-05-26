@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Modules\{{ModuleName}}\Models;
+
+use App\Traits\HasStates;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class {{ModelName}} extends Model
+{
+    use HasFactory, HasStates;
+
+    protected $fillable = [
+        'name',
+        'status',
+        'tenant_id',
+        // Ajouter les colonnes de la table
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'created_at' => 'datetime',
+            'updated_at' => 'datetime',
+        ];
+    }
+
+    // Ajouter les relations Eloquent
+}

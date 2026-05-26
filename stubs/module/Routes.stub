@@ -1,0 +1,12 @@
+<?php
+
+use App\Modules\{{ModuleName}}\Controllers\{{ModelName}}Controller;
+use Illuminate\Support\Facades\Route;
+
+Route::middleware('auth:sanctum')->prefix('{{routePrefix}}')->group(function () {
+    Route::get('/',        [{{ModelName}}Controller::class, 'index']);
+    Route::post('/',       [{{ModelName}}Controller::class, 'store']);
+    Route::get('/{id}',    [{{ModelName}}Controller::class, 'show']);
+    Route::put('/{id}',    [{{ModelName}}Controller::class, 'update']);
+    Route::delete('/{id}', [{{ModelName}}Controller::class, 'destroy']);
+});

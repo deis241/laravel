@@ -1,0 +1,83 @@
+<?php
+
+namespace App\Modules\{{ModuleName}}\Controllers;
+
+use App\Modules\{{ModuleName}}\Requests\Create{{ModelName}}Request;
+use App\Modules\{{ModuleName}}\Requests\Update{{ModelName}}Request;
+use App\Modules\{{ModuleName}}\Resources\{{ModelName}}Resource;
+use App\Modules\{{ModuleName}}\Services\{{ModelName}}Service;
+use App\Shared\Controllers\BaseController;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+
+class {{ModelName}}Controller extends BaseController
+{
+    public function __construct(private readonly {{ModelName}}Service $service) {}
+
+    public function index(Request $request): JsonResponse
+    {
+        return $this->execute(function () use ($request) {
+            ['filters' => $filters, 'per_page' => $perPage] = $this->getPaginationAndFilters(
+                $request,
+                ['search', 'status', 'sort_by', 'sort_direction', 'date_debut', 'date_fin']
+            );
+
+            $items = $this->service->getAll($this->getTenantId(), $filters, $perPage);
+
+            return $this->response(
+                {{ModelName}}Resource::collection($items),
+                Response::HTTP_OK,
+                'Liste des {{modelNamePlural}}.'
+            );
+        });
+    }
+
+    public function store(Create{{ModelName}}Request $request): JsonResponse
+    {
+        return $this->execute(function () use ($request) {
+            $item = $this->service->create($request->validated(), $this->getTenantId());
+
+            return $this->responseCreated(
+                new {{ModelName}}Resource($item),
+                Response::HTTP_CREATED,
+                '{{ModelName}} créé(e) avec succès.'
+            );
+        });
+    }
+
+    public function show(int $id): JsonResponse
+    {
+        return $this->execute(function () use ($id) {
+            $item = $this->service->getById($id, $this->getTenantId());
+
+            return $this->response(
+                new {{ModelName}}Resource($item),
+                Response::HTTP_OK,
+                'Détail {{modelName}}.'
+            );
+        });
+    }
+
+    public function update(Update{{ModelName}}Request $request, int $id): JsonResponse
+    {
+        return $this->execute(function () use ($request, $id) {
+            $item = $this->service->update($id, $request->validated(), $this->getTenantId());
+
+            return $this->responseUpdated(
+                new {{ModelName}}Resource($item),
+                Response::HTTP_ACCEPTED,
+                '{{ModelName}} mis(e) à jour avec succès.'
+            );
+        });
+    }
+
+    public function destroy(int $id): JsonResponse
+    {
+        return $this->execute(function () use ($id) {
+            $this->service->delete($id, $this->getTenantId());
+
+            return $this->response(null, Response::HTTP_OK, '{{ModelName}} supprimé(e) avec succès.');
+        });
+    }
+}

@@ -1,0 +1,10 @@
+<?php
+
+namespace App\Modules\{{ModuleName}}\Repositories\Contracts;
+
+use App\Shared\Repositories\Contracts\BaseRepositoryInterface;
+
+interface {{ModelName}}RepositoryInterface extends BaseRepositoryInterface
+{
+    // Déclarer ici les méthodes spécifiques au repository
+}

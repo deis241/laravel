@@ -1,0 +1,15 @@
+<?php
+
+namespace App\Modules\{{ModuleName}}\Services;
+
+use App\Modules\{{ModuleName}}\Repositories\Contracts\{{ModelName}}RepositoryInterface;
+use App\Shared\Services\BaseService;
+
+class {{ModelName}}Service extends BaseService
+{
+    public function __construct(
+        protected {{ModelName}}RepositoryInterface $repository
+    ) {}
+
+    // Ajouter ici les méthodes métier spécifiques
+}

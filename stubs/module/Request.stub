@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Modules\{{ModuleName}}\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class Create{{ModelName}}Request extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'name'   => ['required', 'string', 'max:255'],
+            'status' => ['nullable', 'in:active,inactive'],
+            // Ajouter les règles de validation
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Le nom est obligatoire.',
+        ];
+    }
+}

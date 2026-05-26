@@ -1,0 +1,13 @@
+<?php
+
+namespace App\Modules\{{ModuleName}}\Policies;
+
+use App\Shared\Policies\BasePolicy;
+
+class {{ModelName}}Policy extends BasePolicy
+{
+    protected function getPermissionPrefix(): string
+    {
+        return '{{permissionPrefix}}'; // ex: 'articles' → view_articles, create_articles...
+    }
+}
