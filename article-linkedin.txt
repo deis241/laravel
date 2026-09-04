@@ -20,4 +20,6 @@ Le vrai gain n'est pas seulement le temps gagné à chaque nouveau projet. C'est
 
 Automatiser l'ennuyeux pour se concentrer sur ce qui a de la valeur : c'est probablement le meilleur investissement qu'on puisse faire dans son outillage.
 
+Le projet est open source sur GitHub (https://github.com/deis241/laravel), et je suis ouvert à toute proposition d'amélioration : n'hésitez pas à ouvrir une MR.
+
 #Laravel #PHP #Docker #SoftwareArchitecture #DevOps #BackendDevelopment #CleanCode
