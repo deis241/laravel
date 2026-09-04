@@ -1,0 +1,23 @@
+On a tous connu ça : démarrer un nouveau projet Laravel et refaire, pour la dixième fois, exactement la même chose.
+
+composer create-project. Copier-coller les mêmes dossiers depuis l'ancien projet. Réinstaller Sanctum. Retaper les mêmes migrations users/roles/permissions. Reconfigurer bootstrap/app.php à la main. Une demi-journée, minimum, avant d'écrire la moindre ligne de logique métier.
+
+Ce temps-là ne crée aucune valeur. C'est juste de la friction entre l'idée et le code qui compte vraiment.
+
+Alors j'ai transformé ce rituel en template versionné : une architecture en couches appliquée à chaque module (Controller → Service → Repository → Model), avec inversion de dépendance via des interfaces bindées, une gestion d'erreurs centralisée, du multi-tenancy et du RBAC automatiques, et un découpage vertical par module plutôt qu'un empilement de dossiers génériques.
+
+Puis j'ai poussé le principe un cran plus loin : un entrypoint Docker qui rejoue tout seul ce rituel. Une seule commande :
+
+    docker compose up --build -d
+
+Et le squelette Laravel, Sanctum, les migrations RBAC, Postgres, Mailpit et nginx sortent déjà prêts, configurés, migrés.
+
+Et pour ne pas laisser la documentation de côté : Scramble génère la doc OpenAPI de l'API directement depuis le code — routes, validations, ressources — sans une seule annotation à écrire ni à maintenir à la main.
+
+Ce qui reste à faire, c'est ce qui compte : php artisan make:module, et la logique métier.
+
+Le vrai gain n'est pas seulement le temps gagné à chaque nouveau projet. C'est la cohérence : chaque API démarre désormais avec la même architecture, les mêmes standards, les mêmes réflexes de sécurité — sans dépendre de la mémoire de qui a lancé le projet ce jour-là.
+
+Automatiser l'ennuyeux pour se concentrer sur ce qui a de la valeur : c'est probablement le meilleur investissement qu'on puisse faire dans son outillage.
+
+#Laravel #PHP #Docker #SoftwareArchitecture #DevOps #BackendDevelopment #CleanCode

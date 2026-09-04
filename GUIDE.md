@@ -13,6 +13,9 @@ cd mon-projet
 composer require laravel/sanctum
 php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
 
+# Installer Scramble (documentation API générée automatiquement)
+composer require dedoc/scramble
+
 # Copier le template
 cp -r /chemin/vers/laravel-api-template/app/Shared      app/
 cp -r /chemin/vers/laravel-api-template/app/Traits      app/
