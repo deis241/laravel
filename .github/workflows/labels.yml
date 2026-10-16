@@ -1,0 +1,53 @@
+# Labels communs à tous les dépôts Labs241.
+# - Push sur la branche par défaut (fichier labels.yml modifié) ou lancement manuel : crée et met à jour
+#   les labels de .github/labels.yml. Les labels absents de la liste ne sont pas supprimés.
+# - Pull request : pose le label du type de branche (feature/…, fix/…, refactor/…, ci/…, docs/…, chore/…).
+
+name: Labels
+
+on:
+  push:
+    branches: [main, master, dev]
+    paths:
+      - '.github/labels.yml'
+      - '.github/workflows/labels.yml'
+  pull_request_target:
+    types: [opened, reopened]
+  workflow_dispatch:
+
+jobs:
+  sync:
+    name: Synchroniser les labels
+    if: github.event_name != 'pull_request_target'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: EndBug/label-sync@v2
+        with:
+          config-file: .github/labels.yml
+          delete-other-labels: false
+
+  label-pr:
+    name: Label du type de branche
+    if: github.event_name == 'pull_request_target'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      pull-requests: write
+      issues: write
+    steps:
+      # Aucun code de la PR n'est récupéré : seul le nom de sa branche est lu.
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const type = context.payload.pull_request.head.ref.split('/')[0]
+            const types = ['feature', 'fix', 'refactor', 'ci', 'docs', 'chore']
+            if (!types.includes(type)) {
+              core.notice(`Branche « ${context.payload.pull_request.head.ref} » hors convention <type>/<sujet> : pas de label.`)
+              return
+            }
+            await github.rest.issues.addLabels({ ...context.repo, issue_number: context.payload.pull_request.number, labels: [type] })

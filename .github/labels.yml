@@ -1,0 +1,29 @@
+# Labels communs à tous les dépôts Labs241 (synchronisés par .github/workflows/labels.yml).
+# Les six premiers reprennent les types de branche : une PR ouverte depuis feature/… reçoit « feature ».
+- name: feature
+  color: '0e8a16'
+  description: Nouvelle fonctionnalité
+- name: fix
+  color: 'd73a4a'
+  description: Correction de bug
+- name: refactor
+  color: '5319e7'
+  description: Refonte sans changement de comportement
+- name: ci
+  color: '1d76db'
+  description: Intégration continue, Docker et déploiement
+- name: docs
+  color: '0075ca'
+  description: Documentation
+- name: chore
+  color: 'c5def5'
+  description: Maintenance et configuration
+- name: dependencies
+  color: '0366d6'
+  description: Mise à jour de dépendances
+- name: security
+  color: 'b60205'
+  description: Sécurité
+- name: breaking
+  color: 'e11d21'
+  description: Changement non rétrocompatible (API, schéma, configuration)
